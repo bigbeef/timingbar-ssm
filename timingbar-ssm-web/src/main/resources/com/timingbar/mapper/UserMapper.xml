@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.timingbar.mapper.UserMapper" >
+
+    <!--User-->
+    <resultMap id="UserResultMap" type="com.timingbar.entity.User">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="username" jdbcType="VARCHAR" property="username" />
+        <result column="password" jdbcType="VARCHAR" property="password" />
+        <result column="city_id" jdbcType="BIGINT" property="cityId" />
+    </resultMap>
+    <!--UserDto-->
+    <resultMap id="UserDtoResultMap" type="com.timingbar.dto.UserDto" extends="UserResultMap">
+        <result column="name" property="cityName"/>
+    </resultMap>
+
+    <select id="getById" resultMap="UserDtoResultMap">
+        SELECT u.id, u.username, u.password, u.city_id,c.name FROM user u LEFT JOIN city c on u.city_id = c.id where u.id = #{id}
+    </select>
+
+    <select id="findByUsername" resultMap="UserDtoResultMap">
+        SELECT u.id, u.username, u.password, u.city_id,c.name FROM user u LEFT JOIN city c on u.city_id = c.id where 1=1
+        <if test="username != null">
+           and u.username like  CONCAT('%', #{username}, '%')
+        </if>
+    </select>
+
+</mapper>
