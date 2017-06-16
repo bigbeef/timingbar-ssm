@@ -11,14 +11,14 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements IUserService {
 
-	@Autowired
-	private UserMapper userMapper;
+    @Autowired
+    private UserMapper userMapper;
 
-	public UserDto getById(Long id){
-		return userMapper.getById(id);
-	}
+    public UserDto getById(Long id) {
+        return userMapper.getById(id);
+    }
 
-	public List<UserDto> findByUsername(String username){
-		return userMapper.findByUsername(username);
-	}
+    public List<UserDto> findByUsername(String username) {
+        return userMapper.findByUsername(username);
+    }
 }
